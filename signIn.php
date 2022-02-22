@@ -5,6 +5,7 @@ $DBuser = "root";
 $DBpass = "";
 
 
+
 // クッキーがあるとき
 if (isset($_COOKIE["token"])) {
     // トークン取得
@@ -21,7 +22,7 @@ if (isset($_COOKIE["token"])) {
 
     // 存在したら
     if (count($array) !== 0) {
-        echo "画面遷移";
+        echo "画面遷移A";
     }
 }
 
@@ -59,12 +60,12 @@ if (isset($_POST["signIn"])) {
                 // INSERT句
                 $sql = "INSERT INTO loginStatus(token, userId, dateExpiry) ";
                 $sql .= "VALUES ('{$token}', '{$userId}', '{$time}')";
-            } while ($pdo->exec($sql));
+            } while (!$pdo->exec($sql));
 
             // クッキー発行
             setcookie("token", $token, $time);
 
-            echo "画面遷移";
+            echo "画面遷移B";
         }
     } catch (PDOException $e) {
         echo "エラー:" . $e->getMessage();
